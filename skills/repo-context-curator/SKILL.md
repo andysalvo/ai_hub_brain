@@ -1,14 +1,14 @@
 ---
 name: repo-context-curator
-description: Refresh project context for this repository by scanning AGENT_START_HERE.md, AGENTS.md, CONTRIBUTING.md, README.md, docs/*, and threads/*, then updating docs/context/PROJECT_CONTEXT.md and docs/context/CONTEXT_CHANGELOG.md only when material changes exist.
+description: Refresh project context for this repository by scanning FOR_AGENTS.md, AGENTS.md, CONTRIBUTING.md, README.md, docs/*, and threads/*, then updating only the Embedded Context Snapshot and Embedded Context Changelog sections inside FOR_AGENTS.md when material changes exist.
 ---
 
 # Repo Context Curator
 
-Use this skill when you need to maintain a current, concise project context snapshot that is upload-friendly for free-tier AI tools.
+Use this skill when you need to maintain current repository context while preserving a strict single-source model.
 
 ## Inputs
-- `AGENT_START_HERE.md`
+- `FOR_AGENTS.md`
 - `AGENTS.md`
 - `CONTRIBUTING.md`
 - `README.md`
@@ -16,32 +16,24 @@ Use this skill when you need to maintain a current, concise project context snap
 - `docs/ideas/*.md`
 - `docs/specs/*.md`
 - `docs/decisions/*.md`
-- Existing `docs/context/PROJECT_CONTEXT.md`
-- Existing `docs/context/CONTEXT_CHANGELOG.md`
 
 ## Required Outputs
-- Update `docs/context/PROJECT_CONTEXT.md` sections:
-  - Goal
-  - Current State
-  - Active Threads
-  - Decisions
-  - Open Questions
-  - Next Actions
-  - Contribution Entry
-- Append a dated delta block to `docs/context/CONTEXT_CHANGELOG.md` when material changes are detected.
+- Update only `FOR_AGENTS.md` sections:
+  - `## Embedded Context Snapshot`
+  - `## Embedded Context Changelog`
+- Keep all other sections unchanged unless explicitly requested by a human maintainer.
 
 ## Workflow
 1. Read source documents and thread/artifact files.
 2. Identify material deltas since the last context snapshot.
 3. If no material deltas:
-   - Do not rewrite `PROJECT_CONTEXT.md`.
-   - Do not append changelog entries.
+   - Do not rewrite `FOR_AGENTS.md`.
    - Return a clear "no material change" status summary.
 4. If material deltas exist:
-   - Rewrite only sections affected by new information.
+   - Rewrite only the two embedded context sections.
    - Keep statements factual and avoid speculation.
    - Keep text concise for upload-first workflows.
-   - Append one dated changelog entry describing meaningful changes.
+   - Append one dated changelog entry inside `## Embedded Context Changelog`.
 
 ## Material Change Rules
 Treat the following as material:
@@ -58,4 +50,5 @@ Treat the following as non-material:
 - Preserve the canonical project fact unless explicitly superseded by repository updates.
 - Do not imply official Penn State sponsorship unless a source file states it.
 - Never include secrets or sensitive data.
+- Do not create or update separate context files outside `FOR_AGENTS.md`.
 - Avoid large rewrites that erase historical continuity.

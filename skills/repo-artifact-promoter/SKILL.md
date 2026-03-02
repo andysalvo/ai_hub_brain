@@ -8,8 +8,8 @@ description: Promote material from session threads and context summaries into du
 Use this skill on demand to convert thread-level brainstorming into reusable repository artifacts.
 
 ## Inputs
+- `FOR_AGENTS.md` (canonical rules and contribution model)
 - `threads/*.md` session files
-- `docs/context/PROJECT_CONTEXT.md` and `docs/context/CONTEXT_CHANGELOG.md` (if available)
 - Existing files in:
   - `docs/ideas/`
   - `docs/specs/`
@@ -43,3 +43,4 @@ Always state why the selected destination is appropriate.
 - Do not present brainstorming as final decisions unless explicitly confirmed.
 - Do not invent claims about institutional endorsement.
 - Keep student-collaboration tone practical and actionable.
+- Treat `FOR_AGENTS.md` as source of truth if other documents conflict.
